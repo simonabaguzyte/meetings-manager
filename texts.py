@@ -13,6 +13,7 @@ Main Menu
   0. Exit the program
 """
 
+
 meetings_filter_options = """
 --------------------------
 Meetings Filters

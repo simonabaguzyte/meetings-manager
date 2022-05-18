@@ -14,7 +14,7 @@ def read_json_file(file_name):
         file.write(json.dumps(data))
     finally:
         file.close()
-    
+
     return data
 
 

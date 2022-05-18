@@ -1,6 +1,17 @@
-from meetings.helpers import get_initial_meetings, add_meeting, display_meetings_with_filters, delete_meeting
+from meetings.helpers import (
+    add_meeting,
+    delete_meeting,
+    display_meetings_with_filters,
+    get_initial_meetings,
+)
 from texts import main_menu_options
-from users.helpers import get_initial_users, add_user, display_users, login, display_logged_in_user
+from users.helpers import (
+    add_user,
+    display_logged_in_user,
+    display_users,
+    get_initial_users,
+    login,
+)
 
 
 def get_option():
@@ -21,28 +32,20 @@ def run_program():
 
         if option == "1":
             user = login(users)
-
         elif option == "2":
             users = add_user(users)
-
         elif option == "3":
             meetings = add_meeting(meetings, users)
-        
         elif option == "4":
             meetings = delete_meeting(meetings, user)
-        
-        elif option == "7":
+        elif option == "5":
             display_logged_in_user(user)
-        
-        elif option == "8":
+        elif option == "6":
             display_users(users)
-
-        elif option == "9":
+        elif option == "7":
             display_meetings_with_filters(meetings, users)
-
         elif option == "0":
             break
-
         else:
             print("Please select a valid menu option")
 

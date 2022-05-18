@@ -7,7 +7,6 @@ from users.helpers import display_users
 from texts import meetings_filter_options
 
 
-
 def get_initial_meetings(users):
     meetings = []
     raw_meetings = read_json_file(meetings_file_name)
@@ -28,7 +27,7 @@ def filter_by_description(meetings):
             filtered_meetings.append(meeting)
 
     if filtered_meetings == []:
-        print("No meetings matching the filter were found")    
+        print("No meetings matching the filter were found")
     else:
         display_meetings(filtered_meetings)
 
@@ -40,7 +39,7 @@ def filter_by_responsible_person(meetings, users):
     for meeting in meetings:
         if meeting.responsible_person == responsible_person:
             filtered_meetings.append(meeting)
-    
+
     if filtered_meetings == []:
         print("No meetings assigned to the responsible person were found")
     else:
@@ -54,7 +53,7 @@ def filter_by_category(meetings):
     for meeting in meetings:
         if meeting.category == category:
             filtered_meetings.append(meeting)
-    
+
     if filtered_meetings == []:
         print("No meetings matching the category were found")
     else:
@@ -68,7 +67,7 @@ def filter_by_type(meetings):
     for meeting in meetings:
         if meeting.meeting_type == meeting_type:
             filtered_meetings.append(meeting)
-    
+
     if filtered_meetings == []:
         print("No meetings matching the type were found")
     else:
@@ -103,7 +102,7 @@ def display_meetings(meetings, with_index=False):
         return
 
     print("Meetings:")
-    if (with_index):
+    if with_index:
         for index, meeting in enumerate(meetings):
             print(f"  {index + 1}. {meeting}")
     else:
@@ -122,17 +121,18 @@ def get_responsible_person(users):
             print("Please select a valid number")
             continue
 
-        if (number > 0 and number <= len(users)):
+        if number > 0 and number <= len(users):
             return users[number - 1]
-        
+
         print("Invalid number selected")
+
 
 def get_meeting_category():
     while True:
         print("Categories:")
         for category in Category:
             print(category.value)
-        
+
         raw_selection = input("Please enter category: ")
         selection = raw_selection.upper()
 
@@ -142,7 +142,7 @@ def get_meeting_category():
         except KeyError:
             print("Please enter a category from the list")
             continue
-    
+
         return category
 
 
@@ -151,7 +151,7 @@ def get_meeting_type():
         print("Types:")
         for meeting_type in Type:
             print(meeting_type.value)
-        
+
         raw_selection = input("Please enter type: ")
         selection = raw_selection.upper()
 
@@ -161,7 +161,7 @@ def get_meeting_type():
         except KeyError:
             print("Please enter a type from the list")
             continue
-            
+
         return meeting_type
 
 
@@ -171,18 +171,8 @@ def register_meeting(users):
     description = input("Please enter meeting's description: ")
     category = get_meeting_category()
     meeting_type = get_meeting_type()
-    start_date = input("Please enter meeting's start date: ")
-    end_date = input("Please enter meeting's end date: ")
 
-    meeting = Meeting(
-        name,
-        responsible_person,
-        description,
-        category,
-        meeting_type,
-        start_date,
-        end_date,
-    )
+    meeting = Meeting(name, responsible_person, description, category, meeting_type)
     return meeting
 
 
@@ -199,17 +189,19 @@ def add_meeting(prev_meetings, users):
 def select_meeting_to_delete(meetings):
     while True:
         display_meetings(meetings, with_index=True)
-        number = input("Please select a number for a meeting you would like to delete: ")
+        number = input(
+            "Please select a number for a meeting you would like to delete: "
+        )
 
         try:
             number = int(number)
         except ValueError:
             print("Please select a valid number")
             continue
-            
-        if (number > 0 and number <= len(meetings)):
+
+        if number > 0 and number <= len(meetings):
             return meetings[number - 1]
-        
+
         print("Invalid number selected")
 
 
@@ -225,7 +217,9 @@ def delete_meeting(meetings, user):
 
     valid = meeting.validate_responsible_person(user)
     if not valid:
-        print(f"You are not the responsible person for this meeting. Please login as {meeting.responsible_person}")
+        print(
+            f"You are not the responsible person for this meeting. Please login as {meeting.responsible_person}"
+        )
         return meetings
 
     meetings.remove(meeting)
