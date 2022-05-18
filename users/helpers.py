@@ -1,8 +1,14 @@
-import enum
-from zoneinfo import available_timezones
-from file_helpers import add_to_json_file, read_json_file
+from file_helpers import read_json_file, write_json_file
 from constants import users_file_name
 from users import User
+
+
+def save_users(users):
+    users_dict = []
+    for user in users:
+        users_dict.append(user.to_dict())
+    write_json_file(users_file_name, users_dict)
+
 
 
 def register_user():
@@ -11,20 +17,21 @@ def register_user():
     return user
 
 
-def create_new_user():
+def add_user(prev_users):
     new_user = register_user()
-    add_to_json_file(users_file_name, new_user.to_dict())
+
+    users = prev_users + [new_user]
+    save_users(users)
 
     print("User has been successfully created!")
-    return new_user
+    return users
 
 
 def get_initial_users():
     users = []
     raw_users = read_json_file(users_file_name)
     if raw_users == []:
-        new_user = create_new_user()
-        users.append(new_user)
+        users = add_user(users)
 
     for raw_user in raw_users:
         user = User.from_raw(raw_user)

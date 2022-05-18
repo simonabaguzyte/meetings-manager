@@ -10,4 +10,4 @@ class User:
         return {"username": self.username}
     
     def __str__(self):
-        return f"<User> username={self.username}"
+        return f"<User username={self.username}>"
