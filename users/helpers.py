@@ -1,16 +1,18 @@
 from file_helpers import read_json_file, write_json_file
 from users import User
 
-
+# saugoti user lista i json faila
 def save_users(users):
-    users_dict = []
+    users_dicts = []
     for user in users:
-        users_dict.append(user.to_dict())
-    write_json_file("users.json", users_dict)
+        # i lista ikleliu naujus atskirus dict 
+        users_dicts.append(user.to_dict())
+    write_json_file("users.json", users_dicts)
 
 
 def register_user():
     username = input("Please enter a username you would like to register: ")
+    # sukuriu user klases objekta
     user = User(username)
     return user
 
@@ -27,12 +29,15 @@ def add_user(prev_users):
 
 def get_initial_users():
     users = []
+    # paimamas json faile esantis listas, kuriame yra visi dictionars (key ir value)
     raw_users = read_json_file("users.json")
     if raw_users == []:
         users = add_user(users)
 
     for raw_user in raw_users:
-        user = User.from_raw(raw_user)
+        # is dict sukuriu user klases objekta
+        username=dict["username"]
+        user = User(username)
         users.append(user)
 
     return users

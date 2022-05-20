@@ -17,7 +17,7 @@ def read_json_file(file_name):
 
     return data
 
-
+# duomenys irasomi i turima json faila
 def write_json_file(file_name, data):
     json_data = json.dumps(data)
 

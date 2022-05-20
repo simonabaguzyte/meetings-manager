@@ -10,7 +10,18 @@ def get_initial_meetings(users):
     raw_meetings = read_json_file("meetings.json")
 
     for raw_meeting in raw_meetings:
-        meeting = Meeting.from_raw(raw_meeting, users)
+        name = raw_meeting["name"]
+        
+        responsible_person = None
+        for user in users:
+            if user.username == dict["responsible_person"]["username"]:
+                responsible_person = user
+
+        description = raw_meeting["description"]
+        category = Category[dict["category"]]
+        meeting_type = Type[dict["meeting_type"]]
+
+        meeting = Meeting(name, responsible_person, description, category, meeting_type)
         meetings.append(meeting)
 
     return meetings

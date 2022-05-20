@@ -17,24 +17,6 @@ class Meeting:
         self.category = category
         self.meeting_type = meeting_type
 
-    @classmethod
-    def from_raw(cls, dict, users):
-        responsible_person = None
-        for user in users:
-            if user.username == dict["responsible_person"]["username"]:
-                responsible_person = user
-
-        category = Category[dict["category"]]
-        meeting_type = Type[dict["meeting_type"]]
-
-        return cls(
-            name=dict["name"],
-            responsible_person=responsible_person,
-            description=dict["description"],
-            category=category,
-            meeting_type=meeting_type,
-        )
-
     def validate_responsible_person(self, user):
         return self.responsible_person == user
 

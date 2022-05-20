@@ -60,7 +60,7 @@ def run_program():
         elif option == "0":
             break
         else:
-            print("Please select a valid menu option:")
+            print("Please select a valid menu option")
 
 
 if __name__ == "__main__":
