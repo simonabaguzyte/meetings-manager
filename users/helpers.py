@@ -1,5 +1,4 @@
 from file_helpers import read_json_file, write_json_file
-from constants import users_file_name
 from users import User
 
 
@@ -7,7 +6,7 @@ def save_users(users):
     users_dict = []
     for user in users:
         users_dict.append(user.to_dict())
-    write_json_file(users_file_name, users_dict)
+    write_json_file("users.json", users_dict)
 
 
 def register_user():
@@ -28,7 +27,7 @@ def add_user(prev_users):
 
 def get_initial_users():
     users = []
-    raw_users = read_json_file(users_file_name)
+    raw_users = read_json_file("users.json")
     if raw_users == []:
         users = add_user(users)
 

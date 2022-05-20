@@ -4,7 +4,7 @@ from meetings.helpers import (
     display_meetings_with_filters,
     get_initial_meetings,
 )
-from texts import main_menu_options
+
 from users.helpers import (
     add_user,
     display_logged_in_user,
@@ -15,17 +15,30 @@ from users.helpers import (
 
 
 def get_option():
-    print(main_menu_options)
-    option = input("Please chose an option: ")
+    print("""
+--------------------------
+Main Menu
+  1. Login as a user
+  2. Create a user
+  3. Create a meeting
+  4. Delete a meeting
+
+  5. Display currently logged in user
+  6. Display users
+  7. Display meetings
+  
+  0. Exit the program
+""")
+    option = input("Please choose an option: ")
     return option
 
 
 def run_program():
-    print("Welcome to Simona's meeting manager app")
+    print("\n\n***Welcome to Simona's meeting manager app***\n")
 
     users = get_initial_users()
-    user = login(users)
     meetings = get_initial_meetings(users)
+    user = login(users)
 
     while True:
         option = get_option()
@@ -47,7 +60,7 @@ def run_program():
         elif option == "0":
             break
         else:
-            print("Please select a valid menu option")
+            print("Please select a valid menu option:")
 
 
 if __name__ == "__main__":

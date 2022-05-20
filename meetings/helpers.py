@@ -1,15 +1,13 @@
 from meetings.category import Category
 from meetings.type import Type
 from file_helpers import read_json_file, write_json_file
-from constants import meetings_file_name
 from meetings import Meeting
 from users.helpers import display_users
-from texts import meetings_filter_options
 
 
 def get_initial_meetings(users):
     meetings = []
-    raw_meetings = read_json_file(meetings_file_name)
+    raw_meetings = read_json_file("meetings.json")
 
     for raw_meeting in raw_meetings:
         meeting = Meeting.from_raw(raw_meeting, users)
@@ -79,7 +77,15 @@ def display_meetings_with_filters(meetings, users):
         print("No meetings have been created")
         return
 
-    print(meetings_filter_options)
+    print("""
+--------------------------
+Meetings Filters
+  1. No filter (display all meetings)
+  2. Filter by description
+  3. Filter by responsible person
+  4. Filter by category
+  5. Filter by type
+""")
     option = input("Please select a filter: ")
 
     if option == "1":
@@ -209,7 +215,7 @@ def save_meetings(meetings):
     meetings_dict = []
     for meeting in meetings:
         meetings_dict.append(meeting.to_dict())
-    write_json_file(meetings_file_name, meetings_dict)
+    write_json_file("meetings.json", meetings_dict)
 
 
 def delete_meeting(meetings, user):
