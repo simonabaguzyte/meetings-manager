@@ -36,7 +36,7 @@ def get_initial_users():
 
     for raw_user in raw_users:
         # is dict sukuriu user klases objekta
-        username=dict["username"]
+        username = raw_user["username"]
         user = User(username)
         users.append(user)
 

@@ -1,5 +1,3 @@
-from meetings.category import Category
-from meetings.type import Type
 from file_helpers import read_json_file, write_json_file
 from meetings import Meeting
 from users.helpers import display_users
@@ -18,8 +16,8 @@ def get_initial_meetings(users):
                 responsible_person = user
 
         description = raw_meeting["description"]
-        category = Category[dict["category"]]
-        meeting_type = Type[dict["meeting_type"]]
+        category = dict["category"]
+        meeting_type = dict["meeting_type"]
 
         meeting = Meeting(name, responsible_person, description, category, meeting_type)
         meetings.append(meeting)
@@ -145,41 +143,33 @@ def get_responsible_person(users):
 
 
 def get_meeting_category():
+    categories = ["CodeMonkey", "Hub", "Short", "TeamBuilding"]
     while True:
         print("Categories:")
-        for category in Category:
-            print(category.value)
+        for category in categories:
+            print(category)
 
-        raw_selection = input("Please enter category: ")
-        selection = raw_selection.upper()
+        selection = input("Please enter category: ")
 
-        category = None
-        try:
-            category = Category[selection]
-        except KeyError:
-            print("Please enter a category from the list")
-            continue
-
-        return category
+        if selection in categories:
+            return selection
+        
+        print("Please enter a category from the list")
 
 
 def get_meeting_type():
+    types = ["Live", "InPerson"]
     while True:
         print("Types:")
-        for meeting_type in Type:
-            print(meeting_type.value)
+        for meeting_type in types:
+            print(meeting_type)
 
-        raw_selection = input("Please enter type: ")
-        selection = raw_selection.upper()
+        selection = input("Please enter type: ")
 
-        meeting_type = None
-        try:
-            meeting_type = Type[selection]
-        except KeyError:
-            print("Please enter a type from the list")
-            continue
-
-        return meeting_type
+        if selection in types:
+            return selection
+            
+        print("Please enter a type from the list")
 
 
 def register_meeting(users):
@@ -226,6 +216,7 @@ def save_meetings(meetings):
     meetings_dict = []
     for meeting in meetings:
         meetings_dict.append(meeting.to_dict())
+    print(meetings_dict)
     write_json_file("meetings.json", meetings_dict)
 
 

@@ -1,7 +1,3 @@
-from meetings.category import Category
-from meetings.type import Type
-
-
 class Meeting:
     def __init__(
         self,
@@ -25,8 +21,8 @@ class Meeting:
             "name": self.name,
             "responsible_person": self.responsible_person.to_dict(),
             "description": self.description,
-            "category": self.category.name,
-            "meeting_type": self.meeting_type.name,
+            "category": self.category,
+            "meeting_type": self.meeting_type,
         }
 
     def __str__(self):
@@ -34,6 +30,6 @@ class Meeting:
             f"<Meeting name={self.name} "
             + f"responsible_person={self.responsible_person} "
             + f"description={self.description} "
-            + f"category={self.category.value} "
-            + f"type={self.meeting_type.value}>"
+            + f"category={self.category} "
+            + f"type={self.meeting_type}>"
         )
